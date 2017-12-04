@@ -1,0 +1,1489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CSAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AICC_J_HIGH_SCORE">
+          <Key>
+            <PropertyRef Name="J_HIGH_SCORE_NUM" />
+          </Key>
+          <Property Name="J_HIGH_SCORE_NUM" Type="decimal" Precision="28" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COURSE_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="STUDENT_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="OBJ_OBJECTIVE_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="OBJ_HIGH_SCORE" Type="varchar" MaxLength="255" />
+          <Property Name="OBJ_HIGH_STATUS" Type="varchar" MaxLength="255" />
+          <Property Name="OBJ_FIRST_DATE" Type="datetime" />
+          <Property Name="SESSION_ID" Type="varchar" MaxLength="255" />
+          <Property Name="uidcount" Type="int" />
+          <Property Name="timems" Type="int" />
+          <Property Name="length" Type="int" />
+        </EntityType>
+        <EntityType Name="BookContent">
+          <Key>
+            <PropertyRef Name="BookContentID" />
+          </Key>
+          <Property Name="BookContentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookTitleID" Type="int" />
+          <Property Name="content" Type="text" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsActive" Type="int" />
+        </EntityType>
+        <EntityType Name="bookName">
+          <Key>
+            <PropertyRef Name="BookNameID" />
+          </Key>
+          <Property Name="BookNameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookTypeID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Content" Type="text" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="AutoName" Type="varchar" MaxLength="255" />
+          <Property Name="IsActive" Type="int" Nullable="false" />
+          <Property Name="Picture" Type="varchar" MaxLength="255" />
+          <Property Name="ByteCount" Type="int" />
+          <Property Name="ClickCount" Type="int" />
+          <Property Name="FlowerCount" Type="int" />
+          <Property Name="keyname" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="BookTitle">
+          <Key>
+            <PropertyRef Name="BookTitleID" />
+          </Key>
+          <Property Name="BookTitleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookNameID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="uploadName" Type="varchar" MaxLength="255" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="OrderColunm" Type="int" />
+          <Property Name="PerateID" Type="int" />
+        </EntityType>
+        <EntityType Name="BookType">
+          <Key>
+            <PropertyRef Name="BookTypeID" />
+          </Key>
+          <Property Name="BookTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookTypeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Remark" Type="text" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“CSAPI.dbo.CHW_CONTENT_TYPE_BASE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="CHW_CONTENT_TYPE_BASE">
+          <Key>
+            <PropertyRef Name="TYPE_ID" />
+          </Key>
+          <Property Name="TYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TYPE_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="PARENT_ID" Type="int" />
+          <Property Name="CHW_PAPER_TYPE" Type="int" />
+        </EntityType>
+        <EntityType Name="CHW_EXAM_PREF">
+          <Key>
+            <PropertyRef Name="EXAM_PREF_ID" />
+          </Key>
+          <Property Name="EXAM_PREF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXAM_ID" Type="int" />
+          <Property Name="USER_ID" Type="varchar" MaxLength="255" />
+          <Property Name="CREATE_DATE" Type="datetime" />
+          <Property Name="LAST_DATE" Type="datetime" />
+          <Property Name="TOTAL_TIME" Type="int" />
+          <Property Name="LAST_SCORE" Type="int" />
+          <Property Name="HIGH_SCORE" Type="int" />
+          <Property Name="ATTEMPT_NUMBER" Type="int" />
+          <Property Name="CHW_PAPER_TYPE" Type="int" />
+          <Property Name="CHW_SESSION_ID" Type="varchar" MaxLength="255" />
+          <Property Name="USER_CREDIT_HOUR" Type="real" />
+        </EntityType>
+        <EntityType Name="COURSEWARE">
+          <Key>
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="STATUS" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="COURSE_ID" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COURSE_NAME" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MENTOR_NAME" Type="varchar" MaxLength="20" />
+          <Property Name="COURSE_CREATEDATE" Type="datetime" />
+          <Property Name="TYPE_ID" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="COURSE_NUMBER" Type="varchar" MaxLength="255" />
+          <Property Name="MASTERY_SCORE" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="6000" />
+          <Property Name="LIMIT_TIME" Type="int" />
+          <Property Name="AUTO_OVER" Type="smallint" />
+          <Property Name="AUTO_REG" Type="smallint" />
+          <Property Name="AUTHLIMIT" Type="int" />
+          <Property Name="COURSE_FLAG" Type="int" />
+          <Property Name="course_price" Type="float" />
+          <Property Name="distributed_flag" Type="int" />
+          <Property Name="content_source" Type="varchar" MaxLength="255" />
+          <Property Name="exam_id" Type="int" />
+          <Property Name="credit_hour" Type="float" />
+          <Property Name="duration" Type="float" />
+          <Property Name="teachername" Type="varchar" MaxLength="50" />
+          <Property Name="topnum" Type="int" />
+          <Property Name="COURSE_TYPE" Type="varchar" MaxLength="255" />
+          <Property Name="Recommend" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jy_Article">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" />
+          <Property Name="source" Type="nvarchar" MaxLength="50" />
+          <Property Name="content" Type="ntext" />
+          <Property Name="url" Type="nvarchar" MaxLength="200" />
+          <Property Name="time" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="ClickRate" Type="int" />
+          <Property Name="IsShow" Type="int" />
+          <Property Name="IsTop" Type="int" />
+          <Property Name="GroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="Jy_Article_Fabulous">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="date" />
+        </EntityType>
+        <EntityType Name="Jy_Article_Fujian">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleID" Type="int" Nullable="false" />
+          <Property Name="fujian" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="JY_Atype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsLink" Type="int" />
+          <Property Name="Url" Type="nvarchar" MaxLength="100" />
+          <Property Name="Img" Type="nvarchar" MaxLength="50" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fuser" Type="int" />
+          <Property Name="ClassId" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassList" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassPre" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassTj" Type="int" />
+          <Property Name="ClassOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="JY_Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChannelName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ChannelShortName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ChannelItemUnit" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReadMe" Type="nvarchar" MaxLength="255" />
+          <Property Name="ChannelPicUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderID" Type="smallint" />
+          <Property Name="OpenType" Type="int" />
+          <Property Name="ChannelType" Type="int" />
+          <Property Name="LinkUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="ChannelDir" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModuleType" Type="int" />
+          <Property Name="Disabled" Type="int" Nullable="false" />
+          <Property Name="parentid" Type="int" />
+        </EntityType>
+        <EntityType Name="JY_Channellesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Channelid" Type="smallint" />
+          <Property Name="lessionid" Type="int" />
+          <Property Name="content" Type="ntext" />
+        </EntityType>
+        <EntityType Name="JY_Lession">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="teacher" Type="nvarchar(max)" />
+          <Property Name="source" Type="nvarchar(max)" />
+          <Property Name="content" Type="ntext" />
+          <Property Name="time" Type="datetime" />
+          <Property Name="img" Type="nvarchar(max)" />
+          <Property Name="lessions" Type="nvarchar(max)" />
+          <Property Name="money" Type="money" />
+          <Property Name="LessionType" Type="int" />
+          <Property Name="ShowType" Type="int" />
+          <Property Name="Course_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="kclx" Type="nvarchar(max)" />
+          <Property Name="kcjj" Type="nvarchar(max)" />
+          <Property Name="xs" Type="nvarchar(max)" />
+          <Property Name="xf" Type="nvarchar(max)" />
+          <Property Name="ScreenWidth" Type="int" />
+          <Property Name="ScreenHeight" Type="int" />
+        </EntityType>
+        <EntityType Name="jy_lessionimage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LID" Type="int" />
+          <Property Name="Path" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="JY_UrlMms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UID" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mms" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Note" Type="ntext" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Video_Length" Type="float" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="CourseNmber" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Push">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Conetent" Type="text" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblArticleComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="ToUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArtId" Type="int" />
+          <Property Name="Context" Type="nvarchar" MaxLength="250" />
+          <Property Name="thumbsup" Type="int" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="CreatTime" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_COURSE_REG">
+          <Key>
+            <PropertyRef Name="USER_NM" />
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="USER_NM" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COURSE_ID" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="QUALIFY" Type="smallint" />
+          <Property Name="REG_DATE" Type="datetime" />
+          <Property Name="REMARK" Type="varchar" MaxLength="2000" />
+          <Property Name="ASSIGN_ID" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COMPLETE" Type="smallint" />
+          <Property Name="START_DATE" Type="datetime" />
+          <Property Name="STUDY_LIMIT" Type="int" />
+          <Property Name="from_flag" Type="int" />
+          <Property Name="active_flag" Type="int" />
+          <Property Name="active_date" Type="datetime" />
+          <Property Name="active_time" Type="int" />
+          <Property Name="credit_hour" Type="float" />
+          <Property Name="extra_credit" Type="float" />
+        </EntityType>
+        <EntityType Name="USER_GROUP">
+          <Key>
+            <PropertyRef Name="USER_GROUP_ID" />
+          </Key>
+          <Property Name="USER_GROUP_ID" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_GROUP_NAME" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PER_USER_GROUP" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="duchy" Type="int" />
+          <Property Name="G_ParentID" Type="int" />
+          <Property Name="G_ShowOrder" Type="int" />
+          <Property Name="G_Level" Type="int" />
+          <Property Name="G_ChildCount" Type="int" />
+          <Property Name="G_Delete" Type="tinyint" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Sort" Type="int" />
+        </EntityType>
+        <EntityType Name="user_xueli">
+          <Key>
+            <PropertyRef Name="xueli_id" />
+          </Key>
+          <Property Name="xueli_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="xueli_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="per_xueli_id" Type="int" />
+        </EntityType>
+        <EntityType Name="user_zj">
+          <Key>
+            <PropertyRef Name="user_zj_nm" />
+          </Key>
+          <Property Name="user_zj_nm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_zj_name" Type="varchar" MaxLength="50" />
+          <Property Name="per_user_zj_nm" Type="int" />
+        </EntityType>
+        <EntityType Name="UserAppeal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="varchar" MaxLength="255" />
+          <Property Name="USER_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="USER_PWD" Type="varchar" MaxLength="255" />
+          <Property Name="USER_PWD_QUT" Type="varchar" MaxLength="100" />
+          <Property Name="USER_PWD_ANS" Type="varchar" MaxLength="100" />
+          <Property Name="USER_BRI_DATE" Type="datetime" />
+          <Property Name="USER_TEL" Type="varchar" MaxLength="20" />
+          <Property Name="USER_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="id_card" Type="varchar" MaxLength="50" />
+          <Property Name="USER_IP" Type="varchar" MaxLength="50" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserCredit">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ExamCredit" Type="float" />
+          <Property Name="CourseCredit" Type="float" />
+          <Property Name="virCredit" Type="float" />
+          <Property Name="OtherCredit" Type="float" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USER_NM" />
+          </Key>
+          <Property Name="USER_STATUS" Type="smallint" />
+          <Property Name="LAST_LOGIN_TIME" Type="datetime" />
+          <Property Name="USER_GROUP_ID" Type="decimal" Precision="28" Scale="0" />
+          <Property Name="USER_ID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_NM" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_TYPE" Type="smallint" />
+          <Property Name="USER_NAME" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_PWD" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="USER_PWD_QUT" Type="varchar" MaxLength="100" />
+          <Property Name="USER_PWD_ANS" Type="varchar" MaxLength="100" />
+          <Property Name="USER_BRI_DATE" Type="datetime" />
+          <Property Name="USER_SEX" Type="smallint" />
+          <Property Name="USER_TEL" Type="varchar" MaxLength="20" />
+          <Property Name="USER_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="USER_INTRODUCE" Type="varchar" MaxLength="2000" />
+          <Property Name="USER_IP" Type="varchar" MaxLength="50" />
+          <Property Name="USER_PROXY_IP" Type="varchar" MaxLength="50" />
+          <Property Name="REMARK" Type="varchar" MaxLength="500" />
+          <Property Name="USER_BUSINESS_NM" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="COURSE_ONLINE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OTHER_ID" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="TOP_GROUP_ID" Type="int" />
+          <Property Name="USER_FLAG" Type="int" />
+          <Property Name="LOGIN_TIMES" Type="int" />
+          <Property Name="zc" Type="int" />
+          <Property Name="zz_sf" Type="int" />
+          <Property Name="zj" Type="int" />
+          <Property Name="user_worktime" Type="datetime" />
+          <Property Name="OTHER_ID_1" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ID_2" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ID_3" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ID_4" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ID_5" Type="varchar" MaxLength="50" />
+          <Property Name="borrow" Type="int" />
+          <Property Name="borrow_time" Type="datetime" />
+          <Property Name="borrow_unit" Type="varchar" MaxLength="50" />
+          <Property Name="post_id" Type="int" />
+          <Property Name="xueli_id" Type="int" />
+          <Property Name="Degree_id" Type="int" />
+          <Property Name="character_id" Type="int" />
+          <Property Name="id_card" Type="varchar" MaxLength="50" />
+          <Property Name="start_on_time" Type="datetime" />
+          <Property Name="default_credit_hour" Type="int" />
+          <Property Name="need_score" Type="float" />
+          <Property Name="user_state" Type="int" />
+          <Property Name="cd_sj" Type="datetime" />
+          <Property Name="gwy_sf" Type="int" />
+          <Property Name="Extension" Type="varchar" MaxLength="50" />
+          <Property Name="EName" Type="varchar" MaxLength="50" />
+          <Property Name="Licence" Type="varchar" MaxLength="30" />
+          <Property Name="Mac" Type="varchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="UserNO" Type="varchar" MaxLength="20" />
+          <Property Name="WorkEndDate" Type="datetime" />
+          <Property Name="CompanyMail" Type="varchar" MaxLength="255" />
+          <Property Name="PhotoUrl" Type="varchar" MaxLength="255" />
+          <Property Name="ExtendField" Type="text" />
+          <Property Name="Title" Type="int" />
+          <Property Name="IC_CARD" Type="varchar" MaxLength="50" />
+          <Property Name="mingzu" Type="varchar" MaxLength="50" />
+          <Property Name="Marriage" Type="int" />
+          <Property Name="fristxueli" Type="int" />
+          <Property Name="S_USER_BUSINESS_NM" Type="varchar" MaxLength="100" />
+          <Property Name="hightxueli" Type="int" />
+          <Property Name="other_town" Type="varchar" MaxLength="500" />
+          <Property Name="ActiveDegree" Type="int" />
+        </EntityType>
+        <Function Name="GetCourseWareList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="teacher" Type="nvarchar" Mode="In" />
+          <Parameter Name="channel" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetCourseWareListCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="teacher" Type="nvarchar" Mode="In" />
+          <Parameter Name="channel" Type="int" Mode="In" />
+          <Parameter Name="start" Type="varchar" Mode="In" />
+          <Parameter Name="end" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertMobileUSERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_STATUS" Type="smallint" Mode="In" />
+          <Parameter Name="LAST_LOGIN_TIME" Type="datetime" Mode="In" />
+          <Parameter Name="USER_GROUP_ID" Type="decimal" Mode="In" />
+          <Parameter Name="USER_ID" Type="varchar" Mode="In" />
+          <Parameter Name="USER_TYPE" Type="smallint" Mode="In" />
+          <Parameter Name="USER_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="USER_PWD" Type="varchar" Mode="In" />
+          <Parameter Name="USER_TEL" Type="varchar" Mode="In" />
+          <Parameter Name="LOGIN_TIMES" Type="int" Mode="In" />
+          <Parameter Name="id_card" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CSAPIModelStoreContainer">
+          <EntitySet Name="AICC_J_HIGH_SCORE" EntityType="Self.AICC_J_HIGH_SCORE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookContent" EntityType="Self.BookContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bookName" EntityType="Self.bookName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookTitle" EntityType="Self.BookTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookType" EntityType="Self.BookType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHW_EXAM_PREF" EntityType="Self.CHW_EXAM_PREF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COURSEWARE" EntityType="Self.COURSEWARE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jy_Article" EntityType="Self.Jy_Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jy_Article_Fabulous" EntityType="Self.Jy_Article_Fabulous" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jy_Article_Fujian" EntityType="Self.Jy_Article_Fujian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JY_Atype" EntityType="Self.JY_Atype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JY_Channel" EntityType="Self.JY_Channel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JY_Channellesson" EntityType="Self.JY_Channellesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JY_Lession" EntityType="Self.JY_Lession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="jy_lessionimage" EntityType="Self.jy_lessionimage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JY_UrlMms" EntityType="Self.JY_UrlMms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Push" EntityType="Self.Push" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblArticleComment" EntityType="Self.tblArticleComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_COURSE_REG" EntityType="Self.USER_COURSE_REG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_GROUP" EntityType="Self.USER_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_xueli" EntityType="Self.user_xueli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_zj" EntityType="Self.user_zj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAppeal" EntityType="Self.UserAppeal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCredit" EntityType="Self.UserCredit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHW_CONTENT_TYPE_BASE" EntityType="Self.CHW_CONTENT_TYPE_BASE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CHW_CONTENT_TYPE_BASE].[TYPE_ID] AS [TYPE_ID], 
+    [CHW_CONTENT_TYPE_BASE].[TYPE_NAME] AS [TYPE_NAME], 
+    [CHW_CONTENT_TYPE_BASE].[PARENT_ID] AS [PARENT_ID], 
+    [CHW_CONTENT_TYPE_BASE].[CHW_PAPER_TYPE] AS [CHW_PAPER_TYPE]
+    FROM [dbo].[CHW_CONTENT_TYPE_BASE] AS [CHW_CONTENT_TYPE_BASE]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSAPIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AICC_J_HIGH_SCORE">
+          <Key>
+            <PropertyRef Name="J_HIGH_SCORE_NUM" />
+          </Key>
+          <Property Name="J_HIGH_SCORE_NUM" Type="Decimal" Precision="28" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COURSE_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STUDENT_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OBJ_OBJECTIVE_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OBJ_HIGH_SCORE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OBJ_HIGH_STATUS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OBJ_FIRST_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SESSION_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uidcount" Type="Int32" />
+          <Property Name="timems" Type="Int32" />
+          <Property Name="length" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BookContent">
+          <Key>
+            <PropertyRef Name="BookContentID" />
+          </Key>
+          <Property Name="BookContentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookTitleID" Type="Int32" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="bookName">
+          <Key>
+            <PropertyRef Name="BookNameID" />
+          </Key>
+          <Property Name="BookNameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookTypeID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="AutoName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Int32" Nullable="false" />
+          <Property Name="Picture" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ByteCount" Type="Int32" />
+          <Property Name="ClickCount" Type="Int32" />
+          <Property Name="FlowerCount" Type="Int32" />
+          <Property Name="keyname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BookTitle">
+          <Key>
+            <PropertyRef Name="BookTitleID" />
+          </Key>
+          <Property Name="BookTitleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookNameID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uploadName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="OrderColunm" Type="Int32" />
+          <Property Name="PerateID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BookType">
+          <Key>
+            <PropertyRef Name="BookTypeID" />
+          </Key>
+          <Property Name="BookTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookTypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CHW_EXAM_PREF">
+          <Key>
+            <PropertyRef Name="EXAM_PREF_ID" />
+          </Key>
+          <Property Name="EXAM_PREF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXAM_ID" Type="Int32" />
+          <Property Name="USER_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LAST_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TOTAL_TIME" Type="Int32" />
+          <Property Name="LAST_SCORE" Type="Int32" />
+          <Property Name="HIGH_SCORE" Type="Int32" />
+          <Property Name="ATTEMPT_NUMBER" Type="Int32" />
+          <Property Name="CHW_PAPER_TYPE" Type="Int32" />
+          <Property Name="CHW_SESSION_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_CREDIT_HOUR" Type="Single" />
+        </EntityType>
+        <EntityType Name="COURSEWARE">
+          <Key>
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="STATUS" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="COURSE_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COURSE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MENTOR_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="COURSE_CREATEDATE" Type="DateTime" Precision="3" />
+          <Property Name="TYPE_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="COURSE_NUMBER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MASTERY_SCORE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" />
+          <Property Name="LIMIT_TIME" Type="Int32" />
+          <Property Name="AUTO_OVER" Type="Int16" />
+          <Property Name="AUTO_REG" Type="Int16" />
+          <Property Name="AUTHLIMIT" Type="Int32" />
+          <Property Name="COURSE_FLAG" Type="Int32" />
+          <Property Name="course_price" Type="Double" />
+          <Property Name="distributed_flag" Type="Int32" />
+          <Property Name="content_source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="exam_id" Type="Int32" />
+          <Property Name="credit_hour" Type="Double" />
+          <Property Name="duration" Type="Double" />
+          <Property Name="teachername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="topnum" Type="Int32" />
+          <Property Name="COURSE_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Recommend" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jy_Article">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="ClickRate" Type="Int32" />
+          <Property Name="IsShow" Type="Int32" />
+          <Property Name="IsTop" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Jy_Article_Fabulous">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArtId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Jy_Article_Fujian">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleID" Type="Int32" Nullable="false" />
+          <Property Name="fujian" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JY_Atype">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsLink" Type="Int32" />
+          <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fuser" Type="Int32" />
+          <Property Name="ClassId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassList" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassPre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassTj" Type="Int32" />
+          <Property Name="ClassOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="JY_Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelItemUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReadMe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelPicUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int16" />
+          <Property Name="OpenType" Type="Int32" />
+          <Property Name="ChannelType" Type="Int32" />
+          <Property Name="LinkUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelDir" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleType" Type="Int32" />
+          <Property Name="Disabled" Type="Int32" Nullable="false" />
+          <Property Name="parentid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="JY_Channellesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Channelid" Type="Int16" />
+          <Property Name="lessionid" Type="Int32" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JY_Lession">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="teacher" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+          <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lessions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="money" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LessionType" Type="Int32" />
+          <Property Name="ShowType" Type="Int32" />
+          <Property Name="Course_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kclx" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kcjj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="xs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="xf" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScreenWidth" Type="Int32" />
+          <Property Name="ScreenHeight" Type="Int32" />
+        </EntityType>
+        <EntityType Name="jy_lessionimage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LID" Type="Int32" />
+          <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JY_UrlMms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mms" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Video_Length" Type="Double" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="CourseNmber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Push">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Conetent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblArticleComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArtId" Type="Int32" />
+          <Property Name="Context" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="thumbsup" Type="Int32" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="CreatTime" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="USER_COURSE_REG">
+          <Key>
+            <PropertyRef Name="USER_NM" />
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="USER_NM" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COURSE_ID" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="QUALIFY" Type="Int16" />
+          <Property Name="REG_DATE" Type="DateTime" Precision="3" />
+          <Property Name="REMARK" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="ASSIGN_ID" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COMPLETE" Type="Int16" />
+          <Property Name="START_DATE" Type="DateTime" Precision="3" />
+          <Property Name="STUDY_LIMIT" Type="Int32" />
+          <Property Name="from_flag" Type="Int32" />
+          <Property Name="active_flag" Type="Int32" />
+          <Property Name="active_date" Type="DateTime" Precision="3" />
+          <Property Name="active_time" Type="Int32" />
+          <Property Name="credit_hour" Type="Double" />
+          <Property Name="extra_credit" Type="Double" />
+        </EntityType>
+        <EntityType Name="USER_GROUP">
+          <Key>
+            <PropertyRef Name="USER_GROUP_ID" />
+          </Key>
+          <Property Name="USER_GROUP_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_GROUP_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PER_USER_GROUP" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="duchy" Type="Int32" />
+          <Property Name="G_ParentID" Type="Int32" />
+          <Property Name="G_ShowOrder" Type="Int32" />
+          <Property Name="G_Level" Type="Int32" />
+          <Property Name="G_ChildCount" Type="Int32" />
+          <Property Name="G_Delete" Type="Byte" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user_xueli">
+          <Key>
+            <PropertyRef Name="xueli_id" />
+          </Key>
+          <Property Name="xueli_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xueli_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="per_xueli_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user_zj">
+          <Key>
+            <PropertyRef Name="user_zj_nm" />
+          </Key>
+          <Property Name="user_zj_nm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_zj_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="per_user_zj_nm" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserAppeal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PWD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PWD_QUT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PWD_ANS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_BRI_DATE" Type="DateTime" Precision="3" />
+          <Property Name="USER_TEL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="USER_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_card" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USER_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserCredit">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExamCredit" Type="Double" />
+          <Property Name="CourseCredit" Type="Double" />
+          <Property Name="virCredit" Type="Double" />
+          <Property Name="OtherCredit" Type="Double" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USER_NM" />
+          </Key>
+          <Property Name="USER_STATUS" Type="Int16" />
+          <Property Name="LAST_LOGIN_TIME" Type="DateTime" Precision="3" />
+          <Property Name="USER_GROUP_ID" Type="Decimal" Precision="28" Scale="0" />
+          <Property Name="USER_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_NM" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_TYPE" Type="Int16" />
+          <Property Name="USER_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_PWD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_PWD_QUT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PWD_ANS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_BRI_DATE" Type="DateTime" Precision="3" />
+          <Property Name="USER_SEX" Type="Int16" />
+          <Property Name="USER_TEL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="USER_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_INTRODUCE" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="USER_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PROXY_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="USER_BUSINESS_NM" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="COURSE_ONLINE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OTHER_ID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TOP_GROUP_ID" Type="Int32" />
+          <Property Name="USER_FLAG" Type="Int32" />
+          <Property Name="LOGIN_TIMES" Type="Int32" />
+          <Property Name="zc" Type="Int32" />
+          <Property Name="zz_sf" Type="Int32" />
+          <Property Name="zj" Type="Int32" />
+          <Property Name="user_worktime" Type="DateTime" Precision="3" />
+          <Property Name="OTHER_ID_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ID_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ID_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ID_4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ID_5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="borrow" Type="Int32" />
+          <Property Name="borrow_time" Type="DateTime" Precision="3" />
+          <Property Name="borrow_unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="post_id" Type="Int32" />
+          <Property Name="xueli_id" Type="Int32" />
+          <Property Name="Degree_id" Type="Int32" />
+          <Property Name="character_id" Type="Int32" />
+          <Property Name="id_card" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="start_on_time" Type="DateTime" Precision="3" />
+          <Property Name="default_credit_hour" Type="Int32" />
+          <Property Name="need_score" Type="Double" />
+          <Property Name="user_state" Type="Int32" />
+          <Property Name="cd_sj" Type="DateTime" Precision="3" />
+          <Property Name="gwy_sf" Type="Int32" />
+          <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Licence" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Mac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UserNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WorkEndDate" Type="DateTime" Precision="3" />
+          <Property Name="CompanyMail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PhotoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ExtendField" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="Int32" />
+          <Property Name="IC_CARD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mingzu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Marriage" Type="Int32" />
+          <Property Name="fristxueli" Type="Int32" />
+          <Property Name="S_USER_BUSINESS_NM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="hightxueli" Type="Int32" />
+          <Property Name="other_town" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveDegree" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CHW_CONTENT_TYPE_BASE">
+          <Key>
+            <PropertyRef Name="TYPE_ID" />
+          </Key>
+          <Property Name="TYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PARENT_ID" Type="Int32" />
+          <Property Name="CHW_PAPER_TYPE" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="MobileAPIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AICC_J_HIGH_SCORE" EntityType="Self.AICC_J_HIGH_SCORE" />
+          <EntitySet Name="BookContent" EntityType="Self.BookContent" />
+          <EntitySet Name="bookName" EntityType="Self.bookName" />
+          <EntitySet Name="BookTitle" EntityType="Self.BookTitle" />
+          <EntitySet Name="BookType" EntityType="Self.BookType" />
+          <EntitySet Name="CHW_EXAM_PREF" EntityType="Self.CHW_EXAM_PREF" />
+          <EntitySet Name="COURSEWARE" EntityType="Self.COURSEWARE" />
+          <EntitySet Name="Jy_Article" EntityType="Self.Jy_Article" />
+          <EntitySet Name="Jy_Article_Fabulous" EntityType="Self.Jy_Article_Fabulous" />
+          <EntitySet Name="Jy_Article_Fujian" EntityType="Self.Jy_Article_Fujian" />
+          <EntitySet Name="JY_Atype" EntityType="Self.JY_Atype" />
+          <EntitySet Name="JY_Channel" EntityType="Self.JY_Channel" />
+          <EntitySet Name="JY_Channellesson" EntityType="Self.JY_Channellesson" />
+          <EntitySet Name="JY_Lession" EntityType="Self.JY_Lession" />
+          <EntitySet Name="jy_lessionimage" EntityType="Self.jy_lessionimage" />
+          <EntitySet Name="JY_UrlMms" EntityType="Self.JY_UrlMms" />
+          <EntitySet Name="Push" EntityType="Self.Push" />
+          <EntitySet Name="tblArticleComment" EntityType="Self.tblArticleComment" />
+          <EntitySet Name="USER_COURSE_REG" EntityType="Self.USER_COURSE_REG" />
+          <EntitySet Name="USER_GROUP" EntityType="Self.USER_GROUP" />
+          <EntitySet Name="user_xueli" EntityType="Self.user_xueli" />
+          <EntitySet Name="user_zj" EntityType="Self.user_zj" />
+          <EntitySet Name="UserAppeal" EntityType="Self.UserAppeal" />
+          <EntitySet Name="UserCredit" EntityType="Self.UserCredit" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <EntitySet Name="CHW_CONTENT_TYPE_BASE" EntityType="Self.CHW_CONTENT_TYPE_BASE" />
+          <FunctionImport Name="GetCourseWareListCount">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="teacher" Mode="In" Type="String" />
+            <Parameter Name="channel" Mode="In" Type="Int32" />
+            <Parameter Name="start" Mode="In" Type="String" />
+            <Parameter Name="end" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertMobileUSERS">
+            <Parameter Name="USER_STATUS" Mode="In" Type="Int16" />
+            <Parameter Name="LAST_LOGIN_TIME" Mode="In" Type="DateTime" />
+            <Parameter Name="USER_GROUP_ID" Mode="In" Type="Decimal" />
+            <Parameter Name="USER_ID" Mode="In" Type="String" />
+            <Parameter Name="USER_TYPE" Mode="In" Type="Int16" />
+            <Parameter Name="USER_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_PWD" Mode="In" Type="String" />
+            <Parameter Name="USER_TEL" Mode="In" Type="String" />
+            <Parameter Name="LOGIN_TIMES" Mode="In" Type="Int32" />
+            <Parameter Name="id_card" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCourseWareList" ReturnType="Collection(CSAPIModel.GetCourseWareList_Result)" >
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="teacher" Mode="In" Type="String" />
+            <Parameter Name="channel" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetCourseWareList_Result">
+          <Property Type="String" Name="ChannelName" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="topnum" Nullable="true" />
+          <Property Type="Int32" Name="LIMIT_TIME" Nullable="true" />
+          <Property Type="DateTime" Name="COURSE_CREATEDATE" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="credit_hour" Nullable="true" />
+          <Property Type="Int32" Name="exam_id" Nullable="true" />
+          <Property Type="Decimal" Name="COURSE_ID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="DESCRIPTION" Nullable="true" MaxLength="6000" />
+          <Property Type="String" Name="COURSE_NAME" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="teachername" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TYPE_ID" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Recommend" Nullable="false" />
+          <Property Type="String" Name="COURSE_TYPE" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CSAPIModelStoreContainer" CdmEntityContainer="MobileAPIEntities">
+          <EntitySetMapping Name="AICC_J_HIGH_SCORE">
+            <EntityTypeMapping TypeName="CSAPIModel.AICC_J_HIGH_SCORE">
+              <MappingFragment StoreEntitySet="AICC_J_HIGH_SCORE">
+                <ScalarProperty Name="J_HIGH_SCORE_NUM" ColumnName="J_HIGH_SCORE_NUM" />
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="STUDENT_ID" ColumnName="STUDENT_ID" />
+                <ScalarProperty Name="OBJ_OBJECTIVE_ID" ColumnName="OBJ_OBJECTIVE_ID" />
+                <ScalarProperty Name="OBJ_HIGH_SCORE" ColumnName="OBJ_HIGH_SCORE" />
+                <ScalarProperty Name="OBJ_HIGH_STATUS" ColumnName="OBJ_HIGH_STATUS" />
+                <ScalarProperty Name="OBJ_FIRST_DATE" ColumnName="OBJ_FIRST_DATE" />
+                <ScalarProperty Name="SESSION_ID" ColumnName="SESSION_ID" />
+                <ScalarProperty Name="uidcount" ColumnName="uidcount" />
+                <ScalarProperty Name="timems" ColumnName="timems" />
+                <ScalarProperty Name="length" ColumnName="length" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookContent">
+            <EntityTypeMapping TypeName="CSAPIModel.BookContent">
+              <MappingFragment StoreEntitySet="BookContent">
+                <ScalarProperty Name="BookContentID" ColumnName="BookContentID" />
+                <ScalarProperty Name="BookTitleID" ColumnName="BookTitleID" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bookName">
+            <EntityTypeMapping TypeName="CSAPIModel.bookName">
+              <MappingFragment StoreEntitySet="bookName">
+                <ScalarProperty Name="BookNameID" ColumnName="BookNameID" />
+                <ScalarProperty Name="BookTypeID" ColumnName="BookTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="AutoName" ColumnName="AutoName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="ByteCount" ColumnName="ByteCount" />
+                <ScalarProperty Name="ClickCount" ColumnName="ClickCount" />
+                <ScalarProperty Name="FlowerCount" ColumnName="FlowerCount" />
+                <ScalarProperty Name="keyname" ColumnName="keyname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookTitle">
+            <EntityTypeMapping TypeName="CSAPIModel.BookTitle">
+              <MappingFragment StoreEntitySet="BookTitle">
+                <ScalarProperty Name="BookTitleID" ColumnName="BookTitleID" />
+                <ScalarProperty Name="BookNameID" ColumnName="BookNameID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="uploadName" ColumnName="uploadName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OrderColunm" ColumnName="OrderColunm" />
+                <ScalarProperty Name="PerateID" ColumnName="PerateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookType">
+            <EntityTypeMapping TypeName="CSAPIModel.BookType">
+              <MappingFragment StoreEntitySet="BookType">
+                <ScalarProperty Name="BookTypeID" ColumnName="BookTypeID" />
+                <ScalarProperty Name="BookTypeName" ColumnName="BookTypeName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHW_EXAM_PREF">
+            <EntityTypeMapping TypeName="CSAPIModel.CHW_EXAM_PREF">
+              <MappingFragment StoreEntitySet="CHW_EXAM_PREF">
+                <ScalarProperty Name="EXAM_PREF_ID" ColumnName="EXAM_PREF_ID" />
+                <ScalarProperty Name="EXAM_ID" ColumnName="EXAM_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="LAST_DATE" ColumnName="LAST_DATE" />
+                <ScalarProperty Name="TOTAL_TIME" ColumnName="TOTAL_TIME" />
+                <ScalarProperty Name="LAST_SCORE" ColumnName="LAST_SCORE" />
+                <ScalarProperty Name="HIGH_SCORE" ColumnName="HIGH_SCORE" />
+                <ScalarProperty Name="ATTEMPT_NUMBER" ColumnName="ATTEMPT_NUMBER" />
+                <ScalarProperty Name="CHW_PAPER_TYPE" ColumnName="CHW_PAPER_TYPE" />
+                <ScalarProperty Name="CHW_SESSION_ID" ColumnName="CHW_SESSION_ID" />
+                <ScalarProperty Name="USER_CREDIT_HOUR" ColumnName="USER_CREDIT_HOUR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COURSEWARE">
+            <EntityTypeMapping TypeName="CSAPIModel.COURSEWARE">
+              <MappingFragment StoreEntitySet="COURSEWARE">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="COURSE_NAME" ColumnName="COURSE_NAME" />
+                <ScalarProperty Name="MENTOR_NAME" ColumnName="MENTOR_NAME" />
+                <ScalarProperty Name="COURSE_CREATEDATE" ColumnName="COURSE_CREATEDATE" />
+                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+                <ScalarProperty Name="COURSE_NUMBER" ColumnName="COURSE_NUMBER" />
+                <ScalarProperty Name="MASTERY_SCORE" ColumnName="MASTERY_SCORE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="LIMIT_TIME" ColumnName="LIMIT_TIME" />
+                <ScalarProperty Name="AUTO_OVER" ColumnName="AUTO_OVER" />
+                <ScalarProperty Name="AUTO_REG" ColumnName="AUTO_REG" />
+                <ScalarProperty Name="AUTHLIMIT" ColumnName="AUTHLIMIT" />
+                <ScalarProperty Name="COURSE_FLAG" ColumnName="COURSE_FLAG" />
+                <ScalarProperty Name="course_price" ColumnName="course_price" />
+                <ScalarProperty Name="distributed_flag" ColumnName="distributed_flag" />
+                <ScalarProperty Name="content_source" ColumnName="content_source" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="credit_hour" ColumnName="credit_hour" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="teachername" ColumnName="teachername" />
+                <ScalarProperty Name="topnum" ColumnName="topnum" />
+                <ScalarProperty Name="COURSE_TYPE" ColumnName="COURSE_TYPE" />
+                <ScalarProperty Name="Recommend" ColumnName="Recommend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jy_Article">
+            <EntityTypeMapping TypeName="CSAPIModel.Jy_Article">
+              <MappingFragment StoreEntitySet="Jy_Article">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ClickRate" ColumnName="ClickRate" />
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+                <ScalarProperty Name="IsTop" ColumnName="IsTop" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jy_Article_Fabulous">
+            <EntityTypeMapping TypeName="CSAPIModel.Jy_Article_Fabulous">
+              <MappingFragment StoreEntitySet="Jy_Article_Fabulous">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ArtId" ColumnName="ArtId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jy_Article_Fujian">
+            <EntityTypeMapping TypeName="CSAPIModel.Jy_Article_Fujian">
+              <MappingFragment StoreEntitySet="Jy_Article_Fujian">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="fujian" ColumnName="fujian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JY_Atype">
+            <EntityTypeMapping TypeName="CSAPIModel.JY_Atype">
+              <MappingFragment StoreEntitySet="JY_Atype">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="IsLink" ColumnName="IsLink" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="fuser" ColumnName="fuser" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="ClassList" ColumnName="ClassList" />
+                <ScalarProperty Name="ClassPre" ColumnName="ClassPre" />
+                <ScalarProperty Name="ClassTj" ColumnName="ClassTj" />
+                <ScalarProperty Name="ClassOrder" ColumnName="ClassOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JY_Channel">
+            <EntityTypeMapping TypeName="CSAPIModel.JY_Channel">
+              <MappingFragment StoreEntitySet="JY_Channel">
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="ChannelShortName" ColumnName="ChannelShortName" />
+                <ScalarProperty Name="ChannelItemUnit" ColumnName="ChannelItemUnit" />
+                <ScalarProperty Name="ReadMe" ColumnName="ReadMe" />
+                <ScalarProperty Name="ChannelPicUrl" ColumnName="ChannelPicUrl" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OpenType" ColumnName="OpenType" />
+                <ScalarProperty Name="ChannelType" ColumnName="ChannelType" />
+                <ScalarProperty Name="LinkUrl" ColumnName="LinkUrl" />
+                <ScalarProperty Name="ChannelDir" ColumnName="ChannelDir" />
+                <ScalarProperty Name="ModuleType" ColumnName="ModuleType" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JY_Channellesson">
+            <EntityTypeMapping TypeName="CSAPIModel.JY_Channellesson">
+              <MappingFragment StoreEntitySet="JY_Channellesson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Channelid" ColumnName="Channelid" />
+                <ScalarProperty Name="lessionid" ColumnName="lessionid" />
+                <ScalarProperty Name="content" ColumnName="content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JY_Lession">
+            <EntityTypeMapping TypeName="CSAPIModel.JY_Lession">
+              <MappingFragment StoreEntitySet="JY_Lession">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="teacher" ColumnName="teacher" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="lessions" ColumnName="lessions" />
+                <ScalarProperty Name="money" ColumnName="money" />
+                <ScalarProperty Name="LessionType" ColumnName="LessionType" />
+                <ScalarProperty Name="ShowType" ColumnName="ShowType" />
+                <ScalarProperty Name="Course_number" ColumnName="Course_number" />
+                <ScalarProperty Name="kclx" ColumnName="kclx" />
+                <ScalarProperty Name="kcjj" ColumnName="kcjj" />
+                <ScalarProperty Name="xs" ColumnName="xs" />
+                <ScalarProperty Name="xf" ColumnName="xf" />
+                <ScalarProperty Name="ScreenWidth" ColumnName="ScreenWidth" />
+                <ScalarProperty Name="ScreenHeight" ColumnName="ScreenHeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jy_lessionimage">
+            <EntityTypeMapping TypeName="CSAPIModel.jy_lessionimage">
+              <MappingFragment StoreEntitySet="jy_lessionimage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LID" ColumnName="LID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JY_UrlMms">
+            <EntityTypeMapping TypeName="CSAPIModel.JY_UrlMms">
+              <MappingFragment StoreEntitySet="JY_UrlMms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Mms" ColumnName="Mms" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Video_Length" ColumnName="Video_Length" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseNmber" ColumnName="CourseNmber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Push">
+            <EntityTypeMapping TypeName="CSAPIModel.Push">
+              <MappingFragment StoreEntitySet="Push">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Conetent" ColumnName="Conetent" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblArticleComment">
+            <EntityTypeMapping TypeName="CSAPIModel.tblArticleComment">
+              <MappingFragment StoreEntitySet="tblArticleComment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FromUser" ColumnName="FromUser" />
+                <ScalarProperty Name="ToUser" ColumnName="ToUser" />
+                <ScalarProperty Name="ArtId" ColumnName="ArtId" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="thumbsup" ColumnName="thumbsup" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CreatTime" ColumnName="CreatTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_COURSE_REG">
+            <EntityTypeMapping TypeName="CSAPIModel.USER_COURSE_REG">
+              <MappingFragment StoreEntitySet="USER_COURSE_REG">
+                <ScalarProperty Name="USER_NM" ColumnName="USER_NM" />
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="QUALIFY" ColumnName="QUALIFY" />
+                <ScalarProperty Name="REG_DATE" ColumnName="REG_DATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="ASSIGN_ID" ColumnName="ASSIGN_ID" />
+                <ScalarProperty Name="COMPLETE" ColumnName="COMPLETE" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="STUDY_LIMIT" ColumnName="STUDY_LIMIT" />
+                <ScalarProperty Name="from_flag" ColumnName="from_flag" />
+                <ScalarProperty Name="active_flag" ColumnName="active_flag" />
+                <ScalarProperty Name="active_date" ColumnName="active_date" />
+                <ScalarProperty Name="active_time" ColumnName="active_time" />
+                <ScalarProperty Name="credit_hour" ColumnName="credit_hour" />
+                <ScalarProperty Name="extra_credit" ColumnName="extra_credit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_GROUP">
+            <EntityTypeMapping TypeName="CSAPIModel.USER_GROUP">
+              <MappingFragment StoreEntitySet="USER_GROUP">
+                <ScalarProperty Name="USER_GROUP_ID" ColumnName="USER_GROUP_ID" />
+                <ScalarProperty Name="USER_GROUP_NAME" ColumnName="USER_GROUP_NAME" />
+                <ScalarProperty Name="PER_USER_GROUP" ColumnName="PER_USER_GROUP" />
+                <ScalarProperty Name="duchy" ColumnName="duchy" />
+                <ScalarProperty Name="G_ParentID" ColumnName="G_ParentID" />
+                <ScalarProperty Name="G_ShowOrder" ColumnName="G_ShowOrder" />
+                <ScalarProperty Name="G_Level" ColumnName="G_Level" />
+                <ScalarProperty Name="G_ChildCount" ColumnName="G_ChildCount" />
+                <ScalarProperty Name="G_Delete" ColumnName="G_Delete" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_xueli">
+            <EntityTypeMapping TypeName="CSAPIModel.user_xueli">
+              <MappingFragment StoreEntitySet="user_xueli">
+                <ScalarProperty Name="xueli_id" ColumnName="xueli_id" />
+                <ScalarProperty Name="xueli_name" ColumnName="xueli_name" />
+                <ScalarProperty Name="per_xueli_id" ColumnName="per_xueli_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_zj">
+            <EntityTypeMapping TypeName="CSAPIModel.user_zj">
+              <MappingFragment StoreEntitySet="user_zj">
+                <ScalarProperty Name="user_zj_nm" ColumnName="user_zj_nm" />
+                <ScalarProperty Name="user_zj_name" ColumnName="user_zj_name" />
+                <ScalarProperty Name="per_user_zj_nm" ColumnName="per_user_zj_nm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAppeal">
+            <EntityTypeMapping TypeName="CSAPIModel.UserAppeal">
+              <MappingFragment StoreEntitySet="UserAppeal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_PWD" ColumnName="USER_PWD" />
+                <ScalarProperty Name="USER_PWD_QUT" ColumnName="USER_PWD_QUT" />
+                <ScalarProperty Name="USER_PWD_ANS" ColumnName="USER_PWD_ANS" />
+                <ScalarProperty Name="USER_BRI_DATE" ColumnName="USER_BRI_DATE" />
+                <ScalarProperty Name="USER_TEL" ColumnName="USER_TEL" />
+                <ScalarProperty Name="USER_EMAIL" ColumnName="USER_EMAIL" />
+                <ScalarProperty Name="id_card" ColumnName="id_card" />
+                <ScalarProperty Name="USER_IP" ColumnName="USER_IP" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCredit">
+            <EntityTypeMapping TypeName="CSAPIModel.UserCredit">
+              <MappingFragment StoreEntitySet="UserCredit">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="ExamCredit" ColumnName="ExamCredit" />
+                <ScalarProperty Name="CourseCredit" ColumnName="CourseCredit" />
+                <ScalarProperty Name="virCredit" ColumnName="virCredit" />
+                <ScalarProperty Name="OtherCredit" ColumnName="OtherCredit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="CSAPIModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="USER_STATUS" ColumnName="USER_STATUS" />
+                <ScalarProperty Name="LAST_LOGIN_TIME" ColumnName="LAST_LOGIN_TIME" />
+                <ScalarProperty Name="USER_GROUP_ID" ColumnName="USER_GROUP_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_NM" ColumnName="USER_NM" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_PWD" ColumnName="USER_PWD" />
+                <ScalarProperty Name="USER_PWD_QUT" ColumnName="USER_PWD_QUT" />
+                <ScalarProperty Name="USER_PWD_ANS" ColumnName="USER_PWD_ANS" />
+                <ScalarProperty Name="USER_BRI_DATE" ColumnName="USER_BRI_DATE" />
+                <ScalarProperty Name="USER_SEX" ColumnName="USER_SEX" />
+                <ScalarProperty Name="USER_TEL" ColumnName="USER_TEL" />
+                <ScalarProperty Name="USER_EMAIL" ColumnName="USER_EMAIL" />
+                <ScalarProperty Name="USER_INTRODUCE" ColumnName="USER_INTRODUCE" />
+                <ScalarProperty Name="USER_IP" ColumnName="USER_IP" />
+                <ScalarProperty Name="USER_PROXY_IP" ColumnName="USER_PROXY_IP" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="USER_BUSINESS_NM" ColumnName="USER_BUSINESS_NM" />
+                <ScalarProperty Name="COURSE_ONLINE" ColumnName="COURSE_ONLINE" />
+                <ScalarProperty Name="OTHER_ID" ColumnName="OTHER_ID" />
+                <ScalarProperty Name="TOP_GROUP_ID" ColumnName="TOP_GROUP_ID" />
+                <ScalarProperty Name="USER_FLAG" ColumnName="USER_FLAG" />
+                <ScalarProperty Name="LOGIN_TIMES" ColumnName="LOGIN_TIMES" />
+                <ScalarProperty Name="zc" ColumnName="zc" />
+                <ScalarProperty Name="zz_sf" ColumnName="zz_sf" />
+                <ScalarProperty Name="zj" ColumnName="zj" />
+                <ScalarProperty Name="user_worktime" ColumnName="user_worktime" />
+                <ScalarProperty Name="OTHER_ID_1" ColumnName="OTHER_ID_1" />
+                <ScalarProperty Name="OTHER_ID_2" ColumnName="OTHER_ID_2" />
+                <ScalarProperty Name="OTHER_ID_3" ColumnName="OTHER_ID_3" />
+                <ScalarProperty Name="OTHER_ID_4" ColumnName="OTHER_ID_4" />
+                <ScalarProperty Name="OTHER_ID_5" ColumnName="OTHER_ID_5" />
+                <ScalarProperty Name="borrow" ColumnName="borrow" />
+                <ScalarProperty Name="borrow_time" ColumnName="borrow_time" />
+                <ScalarProperty Name="borrow_unit" ColumnName="borrow_unit" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="xueli_id" ColumnName="xueli_id" />
+                <ScalarProperty Name="Degree_id" ColumnName="Degree_id" />
+                <ScalarProperty Name="character_id" ColumnName="character_id" />
+                <ScalarProperty Name="id_card" ColumnName="id_card" />
+                <ScalarProperty Name="start_on_time" ColumnName="start_on_time" />
+                <ScalarProperty Name="default_credit_hour" ColumnName="default_credit_hour" />
+                <ScalarProperty Name="need_score" ColumnName="need_score" />
+                <ScalarProperty Name="user_state" ColumnName="user_state" />
+                <ScalarProperty Name="cd_sj" ColumnName="cd_sj" />
+                <ScalarProperty Name="gwy_sf" ColumnName="gwy_sf" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="EName" ColumnName="EName" />
+                <ScalarProperty Name="Licence" ColumnName="Licence" />
+                <ScalarProperty Name="Mac" ColumnName="Mac" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="UserNO" ColumnName="UserNO" />
+                <ScalarProperty Name="WorkEndDate" ColumnName="WorkEndDate" />
+                <ScalarProperty Name="CompanyMail" ColumnName="CompanyMail" />
+                <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+                <ScalarProperty Name="ExtendField" ColumnName="ExtendField" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IC_CARD" ColumnName="IC_CARD" />
+                <ScalarProperty Name="mingzu" ColumnName="mingzu" />
+                <ScalarProperty Name="Marriage" ColumnName="Marriage" />
+                <ScalarProperty Name="fristxueli" ColumnName="fristxueli" />
+                <ScalarProperty Name="S_USER_BUSINESS_NM" ColumnName="S_USER_BUSINESS_NM" />
+                <ScalarProperty Name="hightxueli" ColumnName="hightxueli" />
+                <ScalarProperty Name="other_town" ColumnName="other_town" />
+                <ScalarProperty Name="ActiveDegree" ColumnName="ActiveDegree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHW_CONTENT_TYPE_BASE">
+            <EntityTypeMapping TypeName="CSAPIModel.CHW_CONTENT_TYPE_BASE">
+              <MappingFragment StoreEntitySet="CHW_CONTENT_TYPE_BASE">
+                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+                <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="CHW_PAPER_TYPE" ColumnName="CHW_PAPER_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCourseWareListCount" FunctionName="CSAPIModel.Store.GetCourseWareListCount" />
+          <FunctionImportMapping FunctionImportName="InsertMobileUSERS" FunctionName="CSAPIModel.Store.InsertMobileUSERS" />
+          <FunctionImportMapping FunctionImportName="GetCourseWareList" FunctionName="CSAPIModel.Store.GetCourseWareList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSAPIModel.GetCourseWareList_Result">
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="topnum" ColumnName="topnum" />
+                <ScalarProperty Name="LIMIT_TIME" ColumnName="LIMIT_TIME" />
+                <ScalarProperty Name="COURSE_CREATEDATE" ColumnName="COURSE_CREATEDATE" />
+                <ScalarProperty Name="credit_hour" ColumnName="credit_hour" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="COURSE_NAME" ColumnName="COURSE_NAME" />
+                <ScalarProperty Name="teachername" ColumnName="teachername" />
+                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+                <ScalarProperty Name="Recommend" ColumnName="Recommend" />
+                <ScalarProperty Name="COURSE_TYPE" ColumnName="COURSE_TYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
